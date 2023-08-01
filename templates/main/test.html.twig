@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Document testounet en version 2 avec le html twig</h1>
+    <div>
+
+        <div> {{ "+1 year"|date('Y') }} </div>
+
+        <div>  </div>
+
+
+
+    {# test d'un commentaire ave la création d'une variable #}
+    {% set name = "TOTO"%}
+
+    <h2>{{ name|length }}</h2> 
+    <h2>{{ name|lower }}</h2> 
+    <h3>{{ name|upper }}</h3>
+
+    {# création d'un tableau #}
+    {% set colors = ["orange", "brown", "turquoise", "blue"]%}
+    <div>nombre de couleurs : |{{ colors|length }} </div>
+    <div>{{ colors|join(' / ') }}</div>
+
+
+    {% for color in colors %}
+
+        <div> {{loop.last}} </div>
+
+        <div style="background-color: {{color}}"> {{color}}</div>
+        {% endfor %}
+
+    {# un objet #}  
+
+    {% set book = {
+        title : 'PimPamPoum',
+        year : 2000,
+        author : "Dark Vador"}
+    %}
+    <h3>{{ book.author }}</h3>
+
+    <div>
+        {% for key, val in book %}
+        <div>{{key}} : {{val}} </div>
+        {% endfor %}
+    </div>
+ </div>
+
+{% endblock %}
+
+{% block title %} {{ parent() }} |testounet{% endblock %}
