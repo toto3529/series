@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Document testounet en version 2 avec le html twig</h1>
+    <h1>Hello There - Star Wars 12</h1>
+
+    <div> {{mySerie.title }} {{autreVar}}  {{mySerie.year}} </div>
+
+
     <div>
 
         <div> {{ "+1 year"|date('Y') }} </div>
@@ -19,7 +23,7 @@
 
     {# création d'un tableau #}
     {% set colors = ["orange", "brown", "turquoise", "blue"]%}
-    <div>nombre de couleurs : |{{ colors|length }} </div>
+    <div>nombre de couleurs : {{ colors|length }} </div>
     <div>{{ colors|join(' / ') }}</div>
 
 

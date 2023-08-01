@@ -20,6 +20,17 @@ class MainController extends AbstractController
      */
     public function test()
     {
-        return $this->render('main/test.html.twig');
+            $serie = [
+                "title" => "Le Retour du Jedi",
+                "year" => 1988,
+            ];
+
+
+
+        return $this->render('main/test.html.twig',[
+            "mySerie" => $serie,
+            "autreVar" => " (sans être Jeudi) mais en "
+
+        ]);
     }
 }
