@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,27 +20,30 @@ class SerieController extends AbstractController
     /**
      * @Route("/series", name="serie_list")
      */
-    public function list(): Response
+    public function list(SerieRepository $serieRepository): Response
     {
 
-        //todo : aller chercher les séries en BDD
+        //$series = $serieRepository->findBy([], ['popularity' => 'DESC', 'vote' => 'DESC'], 30);
+        //méthode basique pour faire une filtre avec le findBy
+
+        $series =$serieRepository->findBestSeries();
 
         return $this->render('serie/list.html.twig', [
+            'series' => $series
             
         ]);
     }
 
-
      /**
      * @Route("/series/details/{id}", name="serie_details")
      */
-    public function details(int $id): Response
+    public function details(int $id, SerieRepository $serieRepository): Response
     {
+        $serie = $serieRepository->find($id);
 
-        //todo aller chercher la série dans la BDD
-
-        return $this->render('serie/details.html.twig');
-
+        return $this->render('serie/details.html.twig', [
+        "serie" => $serie
+        ]);
     }
 
     /**

@@ -21,46 +21,55 @@ class SerieRepository extends ServiceEntityRepository
         parent::__construct($registry, Serie::class);
     }
 
-    public function add(Serie $entity, bool $flush = false): void
+    public function findBestSeries()
     {
-        $this->getEntityManager()->persist($entity);
+        //en DQL
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        // $entityManager = $this->getEntityManager();
+        // $dql = "    SELECT s
+        //             FROM App\Entity\Serie s
+        //             WHERE s.popularity > 100
+        //             AND s.vote > 8
+        //             ORDER BY s.popularity DESC
+        // ";
+        // $query = $entityManager->createQuery($dql);
+        // $query->setMaxResults(50);
+        // $results = $query->getResult();
+
+
+        // dump($results); //check résultat et débug si besoin
+        // return $results;
+
+        //version QueryBuilder
+
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->andWhere('s.popularity > 80');
+        $queryBuilder->andWhere('s.vote > 7.5');
+        $queryBuilder->addOrderBy('s.popularity','DESC');
+        $query = $queryBuilder->getQuery();
+
+        $query->setMaxResults(50);
+        $results = $query->getResult();
+        
+        return $results;
     }
 
-    public function remove(Serie $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return Serie[] Returns an array of Serie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Serie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
+
+    // public function add(Serie $entity, bool $flush = false): void
+    // {
+    //     $this->getEntityManager()->persist($entity);
+
+    //     if ($flush) {
+    //         $this->getEntityManager()->flush();
+    //     }
+    // }
+
+    // public function remove(Serie $entity, bool $flush = false): void
+    // {
+    //     $this->getEntityManager()->remove($entity);
+
+    //     if ($flush) {
+    //         $this->getEntityManager()->flush();
+    //     }
+    // }
