@@ -6,9 +6,15 @@ Cerate new series | {{ parent() }}
 
 {% block body %}
 
-<section>
-        todo : afficher le formulaire de création
-</section>
+<div>
+        {{ form_start(serieForm) }}
+
+        {{ form_widget(serieForm) }}
+
+        <button>Create.!</button>
+
+        {{ form_end(serieForm) }}
+</div>
 
 {% endblock %}
 
