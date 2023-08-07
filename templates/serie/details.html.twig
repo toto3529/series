@@ -7,7 +7,29 @@
 
 {% block body %}
 
-<h2>{{ serie.name }}</h2>
+
+<div class="serie-details">
+    <div>
+        <img src="{{ asset("img/posters/series/" ~ serie.poster) }}" alt="{{ serie.name }}">
+    </div>
+<div class="serie-details-infos">
+        <h2>{{ serie.name }}</h2>
+        <br>
+        <div>User ratings : {{ serie.vote }}</div>
+        <br>
+        <div>Categorized in: {{ serie.genres }}</div>
+        <br>
+        <div>Serie status: {{ serie.status }}</div>
+        <br>
+        <div>Aired from {{ serie.firstAirDate | date("Y-m-d") }} to {{ serie.lastAirDate | date("Y-m-d") }}</div>
+        <br>
+        <div>{{ serie.overview | nl2br }}</div>
+    </div>
+</div>
+
+
+
+{# <h2>{{ serie.name }}</h2>
 
 <img src="{{ asset('img/posters/series/' ~ serie.poster) }}" alt="{{serie.name}}">
 <br>
@@ -16,10 +38,16 @@
 <div> {{ serie.popularity }} </div>
 <br>
 <div> Note : {{ serie.vote }} / 10 </div>
-<br>
+<br> #}
 
+{% endblock %}
 
+{% block extrastyles %}
 
+<style>
+        body { background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), url(" {{asset('img/backdrop/' ~ serie.backdrop) }}");
 
+</style>
+    
 {% endblock %}
 
